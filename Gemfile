@@ -13,6 +13,7 @@ gem 'slim-rails'
 gem 'pry'
 gem "therubyracer"
 gem "twitter-bootstrap-rails"
+gem 'less-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
