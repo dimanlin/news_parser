@@ -1,2 +1,9 @@
 h1 Articles
-= render partial: "article", collection: @articles
+table.table.table-hover
+  thead
+    tr
+      th #
+      th Header
+      th Actions
+  tbody
+    = render partial: "article", collection: @articles

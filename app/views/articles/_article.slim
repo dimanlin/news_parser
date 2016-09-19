@@ -1,6 +1,12 @@
-.row
-  .col-xs-6
+tr
+  td = article.id
+  td
     = link_to article.url, target: "_blank" do
       = article.header
-  .col-xs-6
-    = article.body
+  td
+    = link_to "Delete", article_path(article), method: :delete, class: 'btn btn-xs btn-danger'
+    = link_to "Show body", '#', class: 'btn btn-xs btn-primary'
+tr
+  td{colspan='4'}
+    | okjflsdkjflsdf
+    
