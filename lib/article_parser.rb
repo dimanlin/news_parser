@@ -19,14 +19,14 @@ class ArticleParser
       article_attributes.merge!({ body: parent_node.search('p').first.text.strip })
     end
 
-    # link = get_link(header)
-    article_url = header.xpath('a/@href').text
+    article_url = get_link(header)
 
     if article_url =~ /www|http/
       article_attributes.merge!({ url: article_url })
     else
-      fixed_url = url =~ /\/$/ ? url.chomp('/') : url
-      article_attributes.merge!({ url: fixed_url + article_url })
+      host = URI(url).host
+      scheme = URI(url).scheme
+      article_attributes.merge!({ url: "#{scheme}://#{host}" + article_url })
     end
 
     article_attributes.merge!({ header: header.text.strip.gsub('\n', '  ') })
@@ -35,6 +35,10 @@ class ArticleParser
   end
 
   def self.get_link(header)
-
+    if header.xpath('a/@href').present?
+      header.xpath('a/@href').text
+    else
+      header.xpath('./ancestor::a/@href').text
+    end
   end
 end
