@@ -36,6 +36,7 @@ var NewsParseForm = React.createClass({
   },
 
   hendlerParse(event) {
+    SpinStore.active()
     NewsAction.parseUrl(this.state.input_value)
   },
 
@@ -48,7 +49,7 @@ var NewsParseForm = React.createClass({
             <span className="input-group-addon" id="basic-addon3">https://www.yahoo.com/news/?ref=gs</span>
             <input type='text' value={this.state.input_value} onChange={this.hendlerChangeInput} className='form-control'/>
             <span className="input-group-btn">
-              <button className="btn btn-default" type="button" onClick={this.hendlerParse}>Go!</button>
+              <button id='spin_submit' className="btn btn-default" type="button" onClick={this.hendlerParse}>Go!</button>
             </span>
           </div>
         </div>
@@ -66,10 +67,13 @@ var News = React.createClass({
 
   catch(data) {
     if(data.action == 'index') {
+      console.log('1111111111111')
       this.setState({articles: data.response })
+      SpinStore.unactive()
     }
 
     if(data.action == 'parseUrl') {
+      console.log('222222222222')
       NewsAction.index()
     }
   },

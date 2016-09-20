@@ -16,6 +16,8 @@ gem "twitter-bootstrap-rails"
 gem 'less-rails'
 gem 'react-rails'
 gem 'reflux-rails', github: 'raphaelcuba/reflux-rails'
+gem 'react-bootstrap-rails'
+gem 'spinjs-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
