@@ -20,6 +20,15 @@ var NewsRow = React.createClass({
     ModalConfirmAction.show(options)
   },
 
+  hendlerShowDescription() {
+    options = { showModal: true,
+                title: 'Description',
+                body_header: this.state.header,
+                body: this.state.body }
+
+    SimpleModalAction.show(options)
+  },
+
   catch(data) {
     if(data.action == 'confirm' && data.object_key == this.state.object_key) {
       NewsAction.delete(this.state.id)
@@ -35,11 +44,11 @@ var NewsRow = React.createClass({
       <tr>
         <td>{this.state.id}</td>
         <td>
-          <a target="_blank" href="{this.state.url}">{this.state.header}</a>
+          <a target="_blank" href={this.state.url}>{this.state.header}</a>
         </td>
         <td>
           <a className="btn btn-xs btn-danger" onClick={this.hendlerDelete}>Delete</a>
-          <a className="btn btn-xs btn-primary">Show body</a>
+          { this.state.body != null ? <a className="btn btn-xs btn-primary" onClick={this.hendlerShowDescription}>Show description</a> : null}
         </td>
       </tr>
     )
@@ -60,7 +69,7 @@ var NewsParseForm = React.createClass({
   },
 
   valid() {
-    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var expression = /(http:\/\/|https:\/\/)[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression)
     return this.state.input_value.match(regex) != null
   },

@@ -19,3 +19,7 @@
 #= require react/actions/modal_confirm_action
 #= require react/stores/modal_confirm_store
 #= require react/components/modal_confirm
+
+#= require react/actions/simple_modal_action
+#= require react/stores/simple_modal_store
+#= require react/components/simple_modal
