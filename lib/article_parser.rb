@@ -19,6 +19,7 @@ class ArticleParser
       article_attributes.merge!({ body: parent_node.search('p').first.text.strip })
     end
 
+    # link = get_link(header)
     article_url = header.xpath('a/@href').text
 
     if article_url =~ /www|http/
@@ -31,5 +32,9 @@ class ArticleParser
     article_attributes.merge!({ header: header.text.strip.gsub('\n', '  ') })
 
     Article.create( article_attributes )
+  end
+
+  def self.get_link(header)
+
   end
 end

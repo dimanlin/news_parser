@@ -119,10 +119,6 @@ var News = React.createClass({
       this.setState({articles: data.response })
       SpinStore.unactive()
     }
-
-    // if(data.action == 'delete') {
-    //   NewsAction.index()
-    // }
   },
 
   catchArticleBroadcast(data) {
@@ -134,8 +130,6 @@ var News = React.createClass({
     }
 
     if(data.action == 'destroy_article') {
-      console.log('11111111111')
-      console.log(data)
       articles = _.without(this.state.articles, _.findWhere(this.state.articles, {
         id: data.article.id
       }));
