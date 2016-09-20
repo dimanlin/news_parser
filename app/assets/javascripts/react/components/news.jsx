@@ -4,8 +4,30 @@ var NewsRow = React.createClass({
       id: this.props.article.id,
       header: this.props.article.header,
       url: this.props.article.url,
-      body: this.props.article.body
+      body: this.props.article.body,
+      object_key: 'news_row_' + this.props.article.id
     }
+  },
+
+  hendlerDelete() {
+    options = { showModal: true,
+                object_key: this.state.object_key,
+                title: 'Delete',
+                body_header: 'Are you sure ?',
+                body: 'The record is deleted from the database.',
+                action_button_name: 'Delete'}
+
+    ModalConfirmAction.show(options)
+  },
+
+  catch(data) {
+    if(data.action == 'confirm' && data.object_key == this.state.object_key) {
+      NewsAction.delete(this.state.id)
+    }
+  },
+
+  componentWillMount() {
+    ModalConfirmStore.listen(this.catch)
   },
 
   render() {
@@ -16,7 +38,7 @@ var NewsRow = React.createClass({
           <a target="_blank" href="{this.state.url}">{this.state.header}</a>
         </td>
         <td>
-          <a className="btn btn-xs btn-danger">Delete</a>
+          <a className="btn btn-xs btn-danger" onClick={this.hendlerDelete}>Delete</a>
           <a className="btn btn-xs btn-primary">Show body</a>
         </td>
       </tr>
@@ -67,13 +89,15 @@ var News = React.createClass({
 
   catch(data) {
     if(data.action == 'index') {
-      console.log('1111111111111')
       this.setState({articles: data.response })
       SpinStore.unactive()
     }
 
     if(data.action == 'parseUrl') {
-      console.log('222222222222')
+      NewsAction.index()
+    }
+
+    if(data.action == 'delete') {
       NewsAction.index()
     }
   },

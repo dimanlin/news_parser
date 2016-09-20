@@ -15,3 +15,7 @@
 #= require react/actions/spin_action
 #= require react/stores/spin_store
 #= require react/components/spin
+
+#= require react/actions/modal_confirm_action
+#= require react/stores/modal_confirm_store
+#= require react/components/modal_confirm

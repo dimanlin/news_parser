@@ -1,6 +1,7 @@
 var NewsStore = Reflux.createStore({
   init: function() {
     this.listenTo(NewsAction.index, 'index')
+    this.listenTo(NewsAction.delete, 'delete')
     this.listenTo(NewsAction.parseUrl, 'parseUrl')
   },
 
@@ -12,6 +13,17 @@ var NewsStore = Reflux.createStore({
       dataType: 'JSON'
     }).done(function(response) {
       NewsStoreIndex.trigger({action: 'index', response: response })
+    })
+  },
+
+  delete: function(id) {
+    NewsStoreDelete = this
+    $.ajax({
+      url: "/api_v1/articles/" + id,
+      method: 'delete',
+      dataType: 'JSON'
+    }).done(function(response) {
+      NewsStoreDelete.trigger({action: 'delete' })
     })
   },
 

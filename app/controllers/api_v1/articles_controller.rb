@@ -6,4 +6,8 @@ class ApiV1::ArticlesController < ApplicationController
   def parse_url
     ArticleParser.parse(params[:url])
   end
+
+  def destroy
+    Article.find(params[:id]).destroy
+  end
 end
