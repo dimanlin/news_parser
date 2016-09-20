@@ -49,7 +49,9 @@ var NewsRow = React.createClass({
 var NewsParseForm = React.createClass({
   getInitialState() {
     return {
-      input_value: ''
+      input_value: '',
+      showValidationError: false,
+      showValidationErrorMessage: 'Wrong format of url..'
     }
   },
 
@@ -57,9 +59,20 @@ var NewsParseForm = React.createClass({
     this.setState({input_value: event.target.value})
   },
 
+  valid() {
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    var regex = new RegExp(expression)
+    return this.state.input_value.match(regex) != null
+  },
+
   hendlerParse(event) {
-    SpinStore.active()
-    NewsAction.parseUrl(this.state.input_value)
+    if(this.valid() == true) {
+      this.setState({showValidationError: false})
+      SpinStore.active()
+      NewsAction.parseUrl(this.state.input_value)
+    } else {
+      this.setState({showValidationError: true})
+    }
   },
 
   render() {
@@ -73,6 +86,11 @@ var NewsParseForm = React.createClass({
             <span className="input-group-btn">
               <button id='spin_submit' className="btn btn-default" type="button" onClick={this.hendlerParse}>Go!</button>
             </span>
+          </div>
+          <div className='row'>
+            <div className='col-xs-12 text-danger'>
+              { this.state.showValidationError == true ? this.state.showValidationErrorMessage : null}
+            </div>
           </div>
         </div>
       </div>
