@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'articles#index'
+  mount ActionCable.server => "/cable"
 
   resources :articles
   namespace :api_v1 do

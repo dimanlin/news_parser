@@ -120,18 +120,48 @@ var News = React.createClass({
       SpinStore.unactive()
     }
 
-    if(data.action == 'parseUrl') {
-      NewsAction.index()
+    // if(data.action == 'delete') {
+    //   NewsAction.index()
+    // }
+  },
+
+  catchArticleBroadcast(data) {
+    if(data.action == 'new_article') {
+      articles = this.state.articles
+      articles.unshift(data.article)
+      this.setState({articles: articles})
+      SpinAction.unactive()
     }
 
-    if(data.action == 'delete') {
-      NewsAction.index()
+    if(data.action == 'destroy_article') {
+      console.log('11111111111')
+      console.log(data)
+      articles = _.without(this.state.articles, _.findWhere(this.state.articles, {
+        id: data.article.id
+      }));
+      this.setState({articles: articles})
     }
   },
 
   componentWillMount () {
     this.unsubscribe = NewsStore.listen(this.catch)
     NewsAction.index()
+    this.initActionCableSubscribe()
+  },
+
+  initActionCableSubscribe() {
+    App.cable.subscriptions.create("ArticlesChannel", {
+      connected: function() {
+        return console.log('App.articles connected');
+      },
+      disconnected: function() {
+        return console.log('App.articles disconnected');
+      },
+      received: function(data) {
+        return this["catchArticleBroadcast"](data);
+      },
+      "catchArticleBroadcast": this["catchArticleBroadcast"]
+    });
   },
 
   componentWillUnmount: function() {

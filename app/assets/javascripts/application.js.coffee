@@ -7,6 +7,8 @@
 #= require react_bootstrap
 #= require spin
 #= require jquery.spin
+#= require cable
+#= require underscore
 
 #= require react/actions/news_action
 #= require react/stores/news_store
