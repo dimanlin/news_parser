@@ -1,9 +1,10 @@
 h1 Articles
-table.table.table-hover
-  thead
-    tr
-      th #
-      th Header
-      th Actions
-  tbody
-    = render partial: "article", collection: @articles
+= react_component('News')
+/ table.table.table-hover
+/   thead
+/     tr
+/       th #
+/       th Header
+/       th Actions
+/   tbody
+/     = render partial: "article", collection: @articles
