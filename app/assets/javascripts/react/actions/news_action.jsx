@@ -1,3 +1,4 @@
 var NewsAction = Reflux.createActions([
-  'index'
+  'index',
+  'parseUrl'
 ])

@@ -24,6 +24,39 @@ var NewsRow = React.createClass({
   }
 })
 
+var NewsParseForm = React.createClass({
+  getInitialState() {
+    return {
+      input_value: ''
+    }
+  },
+
+  hendlerChangeInput(event) {
+    this.setState({input_value: event.target.value})
+  },
+
+  hendlerParse(event) {
+    NewsAction.parseUrl(this.state.input_value)
+  },
+
+  render() {
+    return (
+      <div className='row'>
+        <div className='col-xs-12'>
+          <label htmlFor="basic-url">Your vanity URL</label>
+          <div className="input-group">
+            <span className="input-group-addon" id="basic-addon3">https://www.yahoo.com/news/?ref=gs</span>
+            <input type='text' value={this.state.input_value} onChange={this.hendlerChangeInput} className='form-control'/>
+            <span className="input-group-btn">
+              <button className="btn btn-default" type="button" onClick={this.hendlerParse}>Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+})
+
 var News = React.createClass({
   getInitialState() {
     return {
@@ -34,6 +67,10 @@ var News = React.createClass({
   catch(data) {
     if(data.action == 'index') {
       this.setState({articles: data.response })
+    }
+
+    if(data.action == 'parseUrl') {
+      NewsAction.index()
     }
   },
 
@@ -51,18 +88,21 @@ var News = React.createClass({
       return (<NewsRow article={data} key={'news_row_key_' + data.id}/>)
     })
     return (
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Header</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          { NewsRows.length > 0 ? NewsRows : null}
-        </tbody>
-      </table>
+      <div>
+        <NewsParseForm />
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            { NewsRows.length > 0 ? NewsRows : null}
+          </tbody>
+        </table>
+      </div>
     )
   }
 })

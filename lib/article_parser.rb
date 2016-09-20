@@ -16,7 +16,7 @@ class ArticleParser
     article_attributes = {}
     parent_node = header.parent
     if parent_node.search('p').first
-      article_attributes.merge!({ article_body: parent_node.search('p').first.text.strip })
+      article_attributes.merge!({ body: parent_node.search('p').first.text.strip })
     end
 
     article_url = header.xpath('a/@href').text

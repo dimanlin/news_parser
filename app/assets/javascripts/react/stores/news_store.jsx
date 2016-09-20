@@ -1,6 +1,7 @@
 var NewsStore = Reflux.createStore({
   init: function() {
     this.listenTo(NewsAction.index, 'index')
+    this.listenTo(NewsAction.parseUrl, 'parseUrl')
   },
 
   index: function() {
@@ -11,6 +12,18 @@ var NewsStore = Reflux.createStore({
       dataType: 'JSON'
     }).done(function(response) {
       NewsStoreIndex.trigger({action: 'index', response: response })
+    })
+  },
+
+  parseUrl: function(url) {
+    NewsStoreIndex = this
+    $.ajax({
+      url: "/api_v1/articles/parse_url",
+      method: 'POST',
+      data: {url: url},
+      dataType: 'JSON'
+    }).done(function(response) {
+      NewsStoreIndex.trigger({action: 'parseUrl', response: response })
     })
   }
 })
