@@ -9,7 +9,7 @@ class ArticleParser
 
     Article.transaction do
       most_postoreny.each do |header|
-        article_attributes = self.parse_by_header_node(header, url)
+        article_attributes = self.parse_by_header_node(header, url.strip)
         Article.create( article_attributes )
       end
     end
@@ -17,6 +17,7 @@ class ArticleParser
 
   def self.parse_by_header_node(header, url)
     article_attributes = {}
+
     parent_node = header.parent
     if parent_node.search('p').first
       article_attributes.merge!({ body: parent_node.search('p').first.text.strip })
