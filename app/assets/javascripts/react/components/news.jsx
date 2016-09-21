@@ -76,7 +76,7 @@ var NewsParseForm = React.createClass({
 
   hendlerParse(event) {
     if(this.valid() == true) {
-      this.setState({showValidationError: false})
+      this.setState({input_value: '', showValidationError: false})
       SpinStore.active()
       NewsAction.parseUrl(this.state.input_value)
     } else {

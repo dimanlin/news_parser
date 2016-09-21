@@ -1,14 +1,17 @@
 class ArticleParser
   def self.parse(url)
-    html_doc = Nokogiri::HTML(open(url).read)
+    html_doc = Nokogiri::HTML(open(url.strip).read)
     h1 = html_doc.xpath('//h1')
     h2 = html_doc.xpath('//h2')
     h3 = html_doc.xpath('//h3')
 
     most_postoreny = [h1, h2, h3].sort {|a,b| b.size <=> a.size }.first
 
-    most_postoreny.each do |header|
-      parse_by_header_node(header, url)
+    Article.transaction do
+      most_postoreny.each do |header|
+        article_attributes = self.parse_by_header_node(header, url)
+        Article.create( article_attributes )
+      end
     end
   end
 
@@ -29,9 +32,7 @@ class ArticleParser
       article_attributes.merge!({ url: "#{scheme}://#{host}" + article_url })
     end
 
-    article_attributes.merge!({ header: header.text.strip.gsub('\n', '  ') })
-
-    Article.create( article_attributes )
+    article_attributes.merge({ header: header.text.strip.gsub('\n', '  ') })
   end
 
   def self.get_link(header)

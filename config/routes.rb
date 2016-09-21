@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :articles, only: :index
   namespace :api_v1 do
-    resources :articles do
+    resources :articles, only: [:index, :destroy] do
       collection do
         post :parse_url
       end
