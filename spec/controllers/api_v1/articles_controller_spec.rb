@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ApiV1::ArticlesController, type: :controller do
-
   render_views
 
   describe '#index' do

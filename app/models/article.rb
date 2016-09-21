@@ -1,5 +1,4 @@
 class Article < ApplicationRecord
-
   after_create :send_to_channel_about_new_article
   after_destroy :send_to_channel_about_destroy_article
 

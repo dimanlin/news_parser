@@ -5,6 +5,5 @@ module ApplicationCable
     def connect
       self.uuid = 'Secret'
     end
-
   end
 end

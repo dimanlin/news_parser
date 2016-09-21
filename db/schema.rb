@@ -10,14 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919133929) do
-
-  create_table "articles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "header"
-    t.text     "body"
-    t.string   "url"
+ActiveRecord::Schema.define(version: 20_160_919_133_929) do
+  create_table 'articles', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string   'header'
+    t.text     'body'
+    t.string   'url'
   end
-
 end

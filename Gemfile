@@ -11,8 +11,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
 gem 'pry'
-gem "therubyracer"
-gem "twitter-bootstrap-rails"
+gem 'therubyracer'
+gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 gem 'react-rails'
 gem 'reflux-rails', github: 'raphaelcuba/reflux-rails'
