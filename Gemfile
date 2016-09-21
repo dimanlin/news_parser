@@ -19,6 +19,7 @@ gem 'reflux-rails', github: 'raphaelcuba/reflux-rails'
 gem 'react-bootstrap-rails'
 gem 'spinjs-rails'
 gem 'underscore-rails'
+gem 'rubocop', require: false
 
 group :development, :test do
   gem 'byebug', platform: :mri
